@@ -1,0 +1,158 @@
+Answers file
+============
+
+Replace the placeholders "..." with your answers.
+
+Who are you?
+* Ahmed Algabri.
+
+
+Part 1: Uniform-cost search
+---------------------------
+
+Run uniform-cost search on the following shortest path problems.
+State the number of loop iterations and the shortest path found (as printed by the program).
+
+Note: *shortest* means *minimal cost*, not the smallest number of edges.
+
+* Travel from Lund to Kiruna in the adjacency graph `AdjacencyGraph/citygraph-SE.txt`
+
+  Loop iterations: 2719
+  Cost of path:    1826
+  Number of edges: 31
+  Shortest path:
+  Gällivare --[121]-> Jokkmokk --[93]-> Sorsele --[233]-> Storuman --[71]-> Vilhelmina --[68]-> ..... --[22]-> Torup --[6]-> Oskarström --[52]-> Åled --[69]-> Hjärnarp --[16]-> Löddeköpinge
+
+
+* Solve the 3x3-puzzle with starting state `/HFG/BED/C_A/` (and goal state `/ABC/DEF/GH_/`).
+
+  Loop iterations:241920
+  Cost of path: from  /HFG/BED/C_A/ to /ABC/DEF/GH_/: 31
+  Number of edges:  31
+  Shortest path:   /ABC/DE_/GHF/ -> /AB_/DEC/GHF/ -> /A_B/DEC/GHF/ -> /_AB/DEC/GHF/ -> /DAB/_EC/GHF/ -> ..... -> /HGD/B_F/CEA/ -> /HGD/BF_/CEA/ -> /HG_/BFD/CEA/ -> /H_G/BFD/CEA/ -> /HFG/B_D/CEA/
+
+* Go from point 23:161 to point 130:211 in the grid graph `GridGraph/AR0011SR.txt`.
+
+  Loop iterations: 79736
+  Cost of path:    from 23:161 to 130:211: 366.4
+  Number of edges: 308
+  Shortest path:   130:210 --[1]-> 130:209 --[1]-> 131:208 --[1.41]-> 132:207 --[1.41]-> 133:206 --[1.41]-> ..... --[1]-> 23:156 --[1]-> 23:157 --[1]-> 23:158 --[1]-> 23:159 --[1]-> 23:160
+
+Part 2: Word ladder
+-------------------
+
+Use uniform-cost search to solve the following word ladder problem.
+State the number of loop iterations and the shortest path found (as printed by the program).
+
+* Find the shortest word ladder from "syster" to "broder" using the dictionary `graphs/WordLadder/swedish-saldo.txt`.
+
+  Loop iterations: 36865
+  Cost of path:    11
+  Number of edges: 11
+  Solution path:  [syster --> byster --> bysten --> basten --> basken --> ... --> bauden --> bruden --> bräden --> bräder --> broder]
+
+Part 3: The A* algorithm
+------------------------
+
+Use A* to solve the following sliding puzzles from Part 1.
+You only have to state the number of loop iterations and calculated distance.
+
+* Solve the 3x3-puzzle with starting state `/HFG/BED/C_A/` (and goal state `/ABC/DEF/GH_/`).
+
+  Loop iterations: 8369
+  Cost of path:   31
+
+# What is the output if you try to solve the starting state `/HGF/BED/C_A/` (with goal state `/ABC/DEF/GH_/`)?
+
+    Loop iterations: 241921
+    Cost of path:    No path from /HGF/BED/C_A/ to /ABC/DEF/GH_/ found.
+
+Part 4: Guessing the cost
+-------------------------
+
+Use A* to find the shortest paths for the remaining problems from Parts 1 and 2.
+You only have to state the number of loop iterations and calculated distance.
+
+* Go from point 23:161 to point 130:211 in the grid graph `graphs/GridGraph/AR0011SR.txt`.
+
+Q4a:
+  Loop iterations: 47900
+  Cost of path:    366.4
+
+* Find the shortest word ladder from "syster" to "broder" using the dictionary `graphs/WordLadder/swedish-saldo.txt`.
+
+  Loop iterations: 5230
+  Cost of path:    11
+
+Part 5: Reflections
+-------------------
+
+**Q5a.**
+What is the approximate improvement factor in the number of loop iterations of A* over UCS?
+Consider separately grid graphs, word ladders, and sliding puzzles.
+Try a number of different examples per class.
+
+GridGraph:    A* better than UCS by factor of: 2.5
+WordLadder:   A* better than UCS by factor of: 7
+SlidingPuzzle: A* better than UCS by factor of: 73
+
+**Q5a.**
+For which of the three above graph types did the heuristic guessCost have the most impact?
+What do you think is the reason for this?
+
+SlidingPuzzle, The reason is that there are very many outgoing edges from this type of graph as the available edges are factorial
+by using A* we don't need to iterate through all of these different state
+
+**Q5c.**
+What are the main differences between your implementations of `searchAstar` and `searchUCS`?
+
+UCS priorities new edges to explore by the cost of each of the available edges,
+A* uses some form of guessing to also take into account the expected cost of reaching the goal node through each next available node,
+as well as the total cost from start to the "next" node.
+
+What is the asymptotic average-case complexity of `WordLadder.outgoingEdges` simultaneously in:
+* the alphabet size K and
+* the length N
+of the given word?
+Justify your answer.
+(Note: all involved sets are hash sets, which have constant time search time.)
+
+O(N^2 * K), The function contains two nested loop, one which will run N times and one which will run K times. Inside these nested loops
+w.toCharArray() and this.dictionary.contains(newWord) both have a worst time complexity of O(n) meaning the body of the nested loops have
+O(2N) = O(N) complexity. In total this will give the method a O(N * K * N) = O(N^2 * K) complexity.
+the dictionary.contains() has average complexity O(1).
+Appendix: general information
+-----------------------------
+
+**Question.**
+How many hours did you spend on the assignment?
+
+10 hours
+
+**Question.**
+Which of the three spoilers did you use?
+
+none
+
+**Question.**
+Do you know of any bugs or limitations?
+
+No,waiting for the feedback from you
+
+**Question.**
+Did you collaborate with any other students on this lab?
+If so, write with whom and in what way you collaborated.
+Also list any resources (including the web) you have used in creating your design.
+
+No
+
+**Question.**
+Did you encounter any serious problems?
+
+Comperhancing the lab at the beginning.
+
+**Question.**
+Do you have other comments or feedback?
+
+No
+

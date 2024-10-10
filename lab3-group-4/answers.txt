@@ -1,0 +1,230 @@
+Answers file
+============
+
+Replace the placeholders "..." with your answers.
+
+Who are you?
+* Ahmed Algabri.
+
+
+Part 1: Complexity analysis
+---------------------------
+
+**Q1a.**
+What is the asymptotic complexity of 'computeIntersections'? Justify your answer.
+Answer in terms of N, the total number of 5-grams in the input files.
+
+You may make the following assumptions:
+* There are D documents.
+* Each document has the the same number of 5-grams K.
+* K is larger than D.
+* There is not much plagiarised text, that is, most 5-grams occur in only one file.
+  Specifically, the number of duplicate occurrences of 5-grams is a small *constant*.
+
+Complexity: [N^2]
+
+Justification:
+[There are D documents, and each gets compared to all the others through nested looping giving a complexity of D^2,
+    for each iteration of the double loop, the 5-grams of each document gets compared through further nested looping,
+    if let through the if statement, but this will only affect the total complexity by a factor,
+    K 5-grams in each (gives) this a further complexity of D^2*K^2. If we define N as D*K the complexity is described by O(N^2).]
+
+**Q1b.**
+How long did the program take compute the intersections for the 'tiny', 'small' and 'medium' directories?
+(You can skip the 'medium' directory if it takes more than 5 minutes.)
+
+tiny:   1.46s //  based on the machine run
+small:  5.28s  //  based on the machine run
+medium: 133.15s  //  based on the machine run
+
+**Q1c.**
+Is the ratio between the times what you would expect, given the asymptotic complexity?
+Explain very briefly why.
+
+-It is to be expected, since the number of 5-ngrams doubles between tiny and small the time it take should be four times longer,
+ as the time it takes depends on the complexity and the complexity is quadratic. Same goes for the jump between small to medium
+ which is five times bigger, meaning an expected 25 times increase in time taken.
+
+**Q1d.**
+How long do you predict the program would take to compute the intersections
+for the 'big' and 'huge' directories, respectively? Show your calculations.
+(Do the same for the 'medium' directory too if you didn't run it in Q1b.)
+
+big:  13315.1s    ///multiply medium*10^2
+huge: 213041.6s   /// Multiply big*4^2
+
+Part 2: Using an intermediate data structure
+--------------------------------------------
+
+**Q2a.**
+How long time does it take to
+(1) build the n-gram index,
+(2) compute the intersections,
+for the 'small' directory?
+
+buildNgramIndex:      3.01s
+computeIntersections: 2.94s
+
+**Q2b.**
+Was this an improvement compared to the original implementation (see Q1b)?
+slow version:
+tiny => Computing intersections took 1.23 seconds.
+small => Computing intersections took 4.75 seconds.
+medium=> Computing intersections took 122.76 seconds.
+
+intermediate:
+tiny => Computing intersections took 0.49 seconds.
+small => Computing intersections took 2.41 seconds.
+medium => Computing intersections took 219.95 seconds.
+
+There are improvement, but it is not noticeable or not worthy to consider an improvement.
+
+Part 3: Implementing a BST
+--------------------------
+
+**Q3a.**
+How long time does it take to
+(1) build the n-gram index,
+(2) compute the intersections,
+for the 'tiny', 'small' and 'medium' directories?
+If you get a stack overflow, just say so.
+
+tiny:
+  - buildNgramIndex:      0.13s
+  - computeIntersections: 0.06s
+small:
+  - buildNgramIndex:      0.48s
+  - computeIntersections: 0.22s
+medium:
+  - buildNgramIndex:      1.46
+  - computeIntersections: 0.64
+
+**Q3b.**
+Which of the BSTs appearing in the program usually become unbalanced?
+(The BSTs are 'fileNgrams', 'ngramIndex', 'intersections'.)
+
+fileNgrams
+
+**Q3c.**
+And here is an OPTIONAL EXTRA QUESTION for those who are interested:
+Is there a simple way to stop these trees becoming unbalanced?
+(I.e., without using a self-balancing data structure.)
+
+...
+
+Part 4: Implementing an AVL tree
+--------------------------------
+
+How long time does it take to
+(1) build the n-gram index,
+(2) compute the intersections,
+for the 'small', 'medium' and 'big' directories?
+
+small:
+  - buildNgramIndex:      0.05s
+  - computeIntersections: 0.06s
+medium:
+  - buildNgramIndex:      0.29s
+  - computeIntersections: 0.13s
+big:
+  - buildNgramIndex:      4.08s
+  - computeIntersections: 1.18s
+
+**Q4b.**
+For the below questions, we denote by N the total number of 5-grams.
+We assume there is a (small) constant number of duplicate occurrences of 5-grams.
+
+What is the asymptotic complexity of 'buildNgramIndex'?
+Justify briefly.
+
+Complexity: [O(N * log(n))]
+
+Justification:
+There are D documents that the buildNgramIndex method get access to, in our implementation we used a for loop which check every files,
+This has an O(D) time complexity.
+The implementation also assign each N-gram extracted from these files to ordered indexes and then assign each index to specific N-gram, this have a O(Log(n)) time complexity
+In total the time complexity is O(N*log(n))
+
+
+**Q4c.**
+What is the asymptotic complexity of 'computeIntersections'?
+Justify briefly.
+
+Complexity:  [O(N * log(n))]
+
+Justification:
+Just because as the task mentioned we are looping through a small amount of intersecting paths, so we can
+neglect the nested loops and its time complexity. Instead, the outer for loop have n iteration and the "get"
+functions have time complexity of O(log(n)). In total the time complexity is O(n*log(n))
+
+**Q4d.**
+The 'huge' directory contains 4 times as many n-grams as the 'big'.
+Approximately how long time will it take to run the program on 'huge', given that you know how long time it took to run on 'big' (or 'medium')?
+Justify briefly.
+
+If you have the patience you can also run it to see how close your calculations were.
+
+Theoretical time to run 'huge': 27.6s
+
+Justification:
+Since the complexity of running buildIndex and compute Intersections is of 2NlogN complexity,
+if n increases by a factor of 4, the total change factor of the complexity of buildIndex and computeIntersections
+is 8*2NlogN, so 8 times bigger.
+
+
+(Optional) Actual time to run 'huge': 25.38s.
+
+**Q4e.**
+Briefly compare your answer in Q4d, with your answer in Q1d.
+
+It seems to have gotten a bit faster.
+ A quadratic complexity growth is much faster than our newer algorithm which grows linearithmicly.
+
+**Q4f (optional extra question).**
+Instead of the previous assumption, we now allow an arbitrary total similarity score S.
+What is the asymptotic complexity of the two functions in terms of both N and S (at the same time)?
+
+Complexity of 'buildNgramIndex': ...
+
+Justification:
+...
+
+Complexity of 'computeIntersections': ...
+
+Justification:
+...
+
+Appendix: general information
+-----------------------------
+
+**Question.**
+How many hours did you spend on the assignment?
+
+6 hours
+
+**Question.**
+Which of the three spoilers did you use?
+
+None
+
+**Question.**
+Do you know of any bugs or limitations?
+
+I don't know , expecting feedback from you.
+
+**Question.**
+Did you collaborate with any other students on this lab?
+If so, write with whom and in what way you collaborated.
+Also list any resources (including the web) you have used in creating your design.
+
+no
+
+**Question.**
+Did you encounter any serious problems?
+
+At the beginning, to understand the assignment then it clicked.
+
+**Question.**
+Do you have other comments or feedback?
+
+More elaboration to explain the assignments:)
