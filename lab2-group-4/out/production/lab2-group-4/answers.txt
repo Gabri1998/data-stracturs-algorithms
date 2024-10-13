@@ -1,0 +1,314 @@
+Answers file
+============
+
+Replace the placeholders "..." with your answers.
+
+
+Who are you?
+* Ahmed Ebrahim Algabri
+* Mahmoud Khalafallah
+* ...
+
+
+Part 1: Perform some linear searches
+------------------------------------
+
+Search for the following strings using the linear search option,
+in the largest text file you have (e.g., bnc-larger.txt.gz).
+
+For each search, write down how many matches you get and how long time each query takes.
+(If there are many matches it's enough if you just write that there are many of them.)
+
+Search for "and":
+* Text file:   bnc-larger.txt.gz
+* N:o matches: 10+ matches
+* Query time:  0,02 seconds
+
+Search for "20th-century":
+* Text file:   [bnc-larger.txt.gz]
+* N:o matches: [4 matches]
+* Query time:  [0,31 seconds]
+
+Search for "this-does-not-exist":
+* Text file:   [bnc-larger.txt.gz]
+* N:o matches: [0 matches]
+* Query time:  [0,27 seconds]
+
+Part 2: Create a suffix array manually
+--------------------------------------
+
+Create a suffix array from the string "SIRAPIPARIS".
+How does it look?
+
+all suffixes sorted by position
+[
+    ( 0, "SIRAPIPARIS"),
+    ( 1, "IRAPIPARIS"),
+    ( 2, "RAPIPARIS"),
+    ( 3, "APIPARIS"),
+    ( 4, "PIPARIS"),
+    ( 5, "IPARIS"),
+    ( 6, "PARIS"),
+    ( 7, "ARIS"),
+    ( 8, "RIS"),
+    ( 9, "IS"),
+    (10, "S"),
+]
+
+all suffixes sorted alphabetically
+[
+    ( 7, "ARIS"),
+    ( 3, "APIPARIS"),
+    ( 5, "IPARIS"),
+    ( 1, "IRAPIPARIS"),
+    ( 9, "IS"),
+    ( 6, "PARIS"),
+    ( 4, "PIPARIS"),
+    ( 2, "RAPIPARIS"),
+    ( 8, "RIS"),
+    ( 0, "SIRAPIPARIS"),
+    (10, "S")
+]
+
+the suffix array should look like this
+[7, 3, 5, 1, 9, 6, 4, 2, 8, 0, 10]
+
+Now create a suffix array from the string "AAAAAAAAAA".
+How does it look?
+
+all suffixes sorted by position
+[
+    (0, "AAAAAAAAAA"),
+    (1, "AAAAAAAAA"),
+    (2, "AAAAAAAA"),
+    (3, "AAAAAAA"),
+    (4, "AAAAAA"),
+    (5, "AAAAA"),
+    (6, "AAAA"),
+    (7, "AAA"),
+    (8, "AA"),
+    (9, "A")
+]
+
+all suffixes sorted alphabetically
+Already sorted!
+
+the suffix array should look like this
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+Part 3: Insertion sort
+----------------------
+
+How long does it take to insertion sort the suffix array for each of the tiny files?
+(bnc-tinyest, bnc-tinyer, bnc-tiny, and possibly bnc-smallest, or even bnc-smaller)
+
+bnc-tinyest.txt : took 0.25 seconds. // sorting 0.1 s
+bnc-tinyer.txt : took 0.39 seconds.  // sorting  0.2 s
+bnc-tiny.txt : took 1.16 seconds.  // sorting  1.0 s
+bnc-smallest.txt : took 9.84 seconds.  // sorting 9.6 s
+bnc-smaller.txt : took 117.51 seconds.  // sorting 118.0 s
+
+Part 4: Quicksort
+-----------------
+
+How long time does it take to quicksort the suffix array for each of the three largest BNC files that you tried?
+
+bnc-medium.txt.gz: total took 1.54 seconds.  // sorting 1.0 s
+bnc-large.txt.gz: total took 6.12 seconds.   // sorting  4.2 s
+bnc-larger.txt.gz: total took 28.08 seconds.   // sorting 20.4 s
+
+Part 5: Binary search in the suffix array
+-----------------------------------------
+
+Why do you think the search results are not shown in increasing order of position?
+
+Because binary search divide the array to half each time and start either form
+ the beginning of the right half or the left half which are totally different.
+
+How long time does it take to search for a non-existing string using linear search, and using binary search, respectively?
+(Don't include the time it takes to read the text and the index.)
+Linear: Finding 0 matches total  took 0.43 seconds.
+Binary: Finding 0 matches total took 0.10 seconds.
+
+Part 6: Multi-key quicksort
+---------------------------
+
+How long time does it take for Quicksort and Multikey Quicksort, respectively, to sort the suffix array for the largest BNC files that you tried?
+
+Quicksort:-
+bnc-medium.txt.gz: total took 1.54 seconds.  // sorting 1.0 s
+bnc-large.txt.gz: total took 6.12 seconds.   // sorting  4.2 s
+bnc-larger.txt.gz: total took 28.08 seconds.   // sorting 20.4 s
+
+Multikey Quicksort:-
+bnc-medium.txt.gz: total took 1.04 seconds.   // sorting 0.4 s
+bnc-large.txt.gz: total took 4.16 seconds.    // sorting 2.2 s
+bnc-larger.txt.gz: total took 14.80 seconds.  // sorting 7.6 s
+
+Part 7: Empirical complexity analysis
+
+Deduce the empirical asymptotic complexity of your three sorting implementations.
+You can, e.g., use a curve fitting tool such as the `scipy` package in Python, or an online tool such as <http://curve.fit/>
+ ------------------------------------
+A. InsertionSort
+Expected complexity:
+- Best Case: (O(n))
+- Average and Worst Case: (O(n^2))
+
+Actual complexity:
+-Depends on empirical testing but typically aligns with the expected complexity,
+showing (O(n^2)) behavior for diverse inputs. Actual performance can vary based on input characteristics.
+
+e.x: for the `bnc-larger.txt.gz` file as input, the actual complexity is anticipated to align with the Average
+and Worst Case scenario of (O(n^2)), considering the potentially large and diverse nature of the data in the file.
+The insertion sort algorithm's performance will heavily depend on the specific characteristics of the suffix array
+generated from the text in the file.
+
+How did you calculate this complexity?
+
+To deduce the empirical asymptotic complexity of the sorting implementation, we followed these condensed steps:
+
+1. Collect Execution Data: Run the sorting algorithm with varying input sizes and record the execution time or operation counts.
+2. Apply Curve Fitting: Use a curve fitting tool (e.g., Python's `scipy` package)
+ to fit the collected data against different complexity models ((O(n)), (O(n log n)), (O(n^2)), etc.).
+3. Analyze Best Fit: The model that best fits our data indicates the empirical asymptotic complexity of our algorithm.
+
+-This approach provides a practical method to understand the performance characteristics of our sorting algorithm based on actual measurements.
+
+
+Mathematical Calculation:
+The number of comparisons in the worst case is the sum of the first (n-1) integers, which is (frac{n(n-1)}{2}), leading to (O(n^2)).
+
+
+---------------------------
+B. Quicksort
+
+Expected Complexity
+- Best and Average Case: (O(n log n))
+- Worst Case: (O(n^2)), especially with sorted or nearly sorted input.
+
+ Actual Complexity
+- Depends on the input data characteristics. With random data, closer to (O(n log n)).
+With sorted/nearly sorted data, can approach (O(n^2)).
+
+How did you calculate this complexity?
+
+To empirically calculate the complexity of our Quicksort using the first element as the pivot:
+
+1. Collect Data: Execute Quicksort on various input sizes and record execution times.
+2. Curve Fitting: Use Python's `scipy.optimize.curve_fit` to fit the execution times against complexity models:
+  linear ((O(n))), quadratic ((O(n^2))), and log-linear ((O(nlog n))).
+3. Analyze Fit: The best-fitting model indicates the empirical complexity.
+
+For Quicksort, you typically expect a log-linear ((O(n\log n))) fit, but unbalanced partitions could show quadratic ((O(n^2))) behavior.
+
+Mathematical Calculation:
+For balanced partitions, the depth of recursion is (log n),
+ and at each level of recursion, (n) operations are performed, leading to (n log n).
+
+----------------------------------------------
+C. MultikeyQuicksort
+
+Expected Complexity:
+- Average Case: (O(n log n))
+- Worst Case: (O(n^2))
+
+Actual Complexity:
+Varies with input data; generally close to (O(n log n)) for diverse datasets,
+ but specific patterns may affect performance.
+
+
+How did you calculate this complexity?
+To empirically determine the complexity of the Multikey Quicksort (or any sorting algorithm) using curve fitting:
+
+1. Collect Data: Execute the sorting algorithm with various input sizes and record the execution times.
+2. Curve Fitting: Use `scipy` in Python or an online tool like <http://curve.fit/> to fit
+ the recorded data to different complexity models (linear, quadratic, log-linear).
+3. Determine Best Fit: The model that best fits our data (lowest error) indicates the empirical complexity of the algorithm.
+
+This process provides an empirical understanding of the algorithm's performance characteristics based on actual data.
+
+Mathematical Calculation:
+While specific to string sorting, it generally follows Quicksort's performance,
+with an average case of (O(n log n))when efficiently partitioning by characters.
+The added efficiency comes from reducing the number of character comparisons needed when common prefixes are present.
+
+-------------------------
+Finally, vary the size of the alphabet.
+You can do this for only Quicksort if you want.
+How does the sorting time change depending on the size of the alphabet?
+(Note: don't try 1-letter alphabets for this question.)
+
+For Quicksort, the sorting time can vary significantly with the size of the alphabet used in the input data:
+
+How much faster/slower is it if you use ten letters (e.g. "ABCDEFGHIK")?
+
+The sorting time might increase compared to a larger alphabet. With more distinct characters,
+there's a higher likelihood of creating more balanced partitions, which improves Quicksort's efficiency.
+However, the increase in distinct elements can also mean more variability in partitioning,
+potentially leading to slightly longer sorting times due to more complex comparisons.
+---------------
+How much faster/slower is it if you use only two letters (e.g., "AB")? ...
+
+With fewer distinct characters, Quicksort may perform fewer comparisons on average per partitioning step,
+especially if the pivot selection is good.
+However, the benefit might not be as significant if the data is very uniform,
+as the algorithm might still need to partition the entire dataset, albeit with simpler comparisons
+---------------------------------------------
+Why do you think sorting becomes faster/slower when you use different alphabet sizes?
+
+- Distribution and Partitioning:
+ A larger alphabet increases the potential for balanced partitions but also introduces more complexity in comparisons.
+ A smaller alphabet simplifies comparisons and might lead to quicker partitioning steps,
+ although it doesn't always guarantee better overall time due to the potential for many elements being equal.
+
+- Pivot Effectiveness*:
+ With a varied alphabet, the chance that the pivot divides the data into well-balanced partitions increases, potentially enhancing Quicksort's efficiency.
+  Conversely, with a very limited alphabet, the effectiveness of the pivot choice might be reduced, especially if many elements are identical.
+--------------------------------------
+
+(Optional question.)
+Now you can try a 1-letter alphabet (e.g. "A") if you want.
+
+What happens when you sort a text consisting of only "A"s? 
+
+...
+
+Why do you think it behaves so much different from other alphabet sizes? 
+
+...
+
+Appendix: general information
+-----------------------------
+
+**Question**
+How many hours did you spend on the assignment?
+
+8 hours
+
+**Questions**
+Which of the three spoilers did you use?
+
+none
+
+**Question**
+Do you know of any bugs or limitations?
+
+all good
+
+**Question**
+Did you collaborate with any other students on this lab?
+If so, write with whom and in what way you collaborated.
+Also list any resources (including the web) you have used in creating your design.
+
+no
+
+**Question**
+Did you encounter any serious problems?
+
+Nah, just the theoretical part is annoying :)
+
+**Question**
+Do you have other comments or feedback?
+
+more elaboration when explaining the assignment
